@@ -1,0 +1,35 @@
+# OllaManager
+
+> Free, open-source web dashboard to manage your local Ollama AI models.
+
+## What is OllaManager?
+
+OllaManager is a browser-based dashboard that connects to your local Ollama instance. It provides a visual interface to:
+
+- **Dashboard**: View installed models, running models, disk usage, and VRAM stats
+- **Models Library**: Pull (download) new models, search installed models, delete models
+- **Chat**: Interactive chat with any installed model using streaming responses
+- **Model Details**: View model family, parameters, quantization, template, and license
+- **Settings**: Configure your Ollama server URL with a guided CORS setup
+
+## How to Use
+
+1. Visit the hosted version at the website URL
+2. Install Ollama from https://ollama.com/download
+3. Start Ollama with CORS enabled (see Settings page for OS-specific commands)
+4. Connect and start managing your models
+
+## Supported Models
+
+Works with all Ollama models including: Llama 3, Gemma, Mistral, Qwen, Phi, DeepSeek, CodeLlama, and any model available in the Ollama registry.
+
+## Tech Stack
+
+- Vite + vanilla JavaScript (no framework)
+- Vanilla CSS with dark theme and glassmorphism
+- Direct fetch() calls to local Ollama REST API
+- No backend server required — runs entirely in the browser
+
+## License
+
+Open source. Free to use.

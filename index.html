@@ -4,10 +4,58 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>OllaManager — Local Ollama Dashboard</title>
+  <title>OllaManager — Free Web Dashboard for Local Ollama Models</title>
   <meta name="description"
-    content="A premium web dashboard to manage your local Ollama models, chat with AI, and monitor performance." />
+    content="Free, open-source web dashboard to manage your local Ollama AI models. Pull, delete, and chat with LLMs like Llama 3, Gemma, Mistral, Qwen and more. No signup required." />
+  <meta name="keywords"
+    content="ollama, ollama manager, ollama dashboard, ollama web ui, AI model manager, local LLM, llama, gemma, mistral, qwen, deepseek, chat with AI locally, open source" />
+  <meta name="author" content="OllaManager" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#6366f1" />
   <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="OllaManager — Free Web Dashboard for Local Ollama Models" />
+  <meta property="og:description"
+    content="Manage your local Ollama AI models, pull new ones, and chat with LLMs — all from a beautiful web dashboard. Free & open source." />
+  <meta property="og:image" content="/og-image.png" />
+  <meta property="og:site_name" content="OllaManager" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="OllaManager — Free Web Dashboard for Local Ollama Models" />
+  <meta name="twitter:description"
+    content="Manage your local Ollama AI models, pull new ones, and chat with LLMs — all from a beautiful web dashboard." />
+  <meta name="twitter:image" content="/og-image.png" />
+
+  <!-- Structured Data for Search Engines -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "OllaManager",
+    "description": "Free, open-source web dashboard to manage local Ollama AI models. Pull, delete, and chat with LLMs like Llama 3, Gemma, Mistral, and more.",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Web",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "featureList": [
+      "Dashboard with model stats and connection monitoring",
+      "Pull and delete Ollama models with progress tracking",
+      "Chat with any installed model with streaming responses",
+      "View detailed model information (parameters, quantization, license)",
+      "Configurable Ollama server URL with CORS setup guide"
+    ],
+    "keywords": "ollama, AI, LLM, model manager, dashboard, chat, open source"
+  }
+  </script>
+
+  <!-- LLM Discoverability -->
+  <link rel="alternate" type="text/plain" href="/llms.txt" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
