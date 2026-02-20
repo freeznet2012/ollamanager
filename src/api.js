@@ -2,8 +2,21 @@
 // Wraps all fetch calls to the local Ollama REST API
 
 const DEFAULT_BASE_URL = 'http://localhost:11434';
+const STORAGE_KEY = 'ollamanager_settings';
 
 let baseUrl = DEFAULT_BASE_URL;
+
+// Load saved settings on init
+function loadSettings() {
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) {
+      const settings = JSON.parse(saved);
+      if (settings.baseUrl) baseUrl = settings.baseUrl;
+    }
+  } catch { /* ignore */ }
+}
+loadSettings();
 
 export function setBaseUrl(url) {
   baseUrl = url.replace(/\/+$/, '');
@@ -11,6 +24,20 @@ export function setBaseUrl(url) {
 
 export function getBaseUrl() {
   return baseUrl;
+}
+
+export function getSettings() {
+  return {
+    baseUrl,
+    isFirstVisit: !localStorage.getItem(STORAGE_KEY),
+  };
+}
+
+export function saveSettings(settings) {
+  if (settings.baseUrl) {
+    baseUrl = settings.baseUrl.replace(/\/+$/, '');
+  }
+  localStorage.setItem(STORAGE_KEY, JSON.stringify({ baseUrl }));
 }
 
 // ===== Health & Version =====
@@ -114,7 +141,7 @@ export async function pullModel(name, onProgress) {
 
 export async function chat(model, messages, onToken, options = {}) {
   const controller = new AbortController();
-  
+
   const res = await fetch(`${baseUrl}/api/chat`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },

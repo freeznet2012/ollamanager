@@ -1,10 +1,12 @@
 // OllaManager – Main Entry Point & Router
 import './style.css';
-import { checkConnection, getVersion } from './api.js';
+import { checkConnection, getVersion, getSettings } from './api.js';
 import { renderDashboard } from './pages/dashboard.js';
 import { renderModels } from './pages/models.js';
 import { renderChat } from './pages/chat.js';
 import { renderModelDetail } from './pages/model-detail.js';
+import { renderSettings } from './pages/settings.js';
+import { showModal, hideModal } from './components.js';
 
 // ===== Router =====
 
@@ -12,6 +14,7 @@ const routes = {
   '/': { title: 'Dashboard', page: 'dashboard', render: renderDashboard },
   '/models': { title: 'Models', page: 'models', render: renderModels },
   '/chat': { title: 'Chat', page: 'chat', render: renderChat },
+  '/settings': { title: 'Settings', page: 'settings', render: renderSettings },
 };
 
 function getHash() {
@@ -58,6 +61,34 @@ async function navigate() {
   } else {
     await route.render(content);
   }
+}
+
+// ===== Welcome Modal (First Visit) =====
+
+function showWelcomeModal() {
+  const { isFirstVisit } = getSettings();
+  if (!isFirstVisit) return;
+
+  showModal(
+    '👋 Welcome to OllaManager',
+    `
+      <p style="margin-bottom:12px">OllaManager connects to your <strong>local Ollama</strong> instance to manage models and chat with AI.</p>
+      <p style="margin-bottom:12px">To get started, you need <strong>Ollama installed</strong> — <a href="https://ollama.com/download" target="_blank" rel="noopener" style="color:var(--accent-primary-hover);text-decoration:underline">Download here</a></p>
+      <p style="font-size:13px;color:var(--text-tertiary)">Head to <strong>Settings</strong> for full setup instructions including CORS configuration.</p>
+    `,
+    [
+      {
+        label: 'Open Settings',
+        className: 'btn-secondary',
+        onClick: () => { location.hash = '#/settings'; },
+      },
+      {
+        label: 'Got it, Continue',
+        className: 'btn-primary',
+        onClick: () => { },
+      },
+    ]
+  );
 }
 
 // ===== Connection Monitor =====
@@ -117,11 +148,21 @@ async function init() {
   // Listen for hash changes
   window.addEventListener('hashchange', navigate);
 
+  // Listen for settings changes (re-check connection)
+  window.addEventListener('settings-changed', () => {
+    updateConnectionStatus();
+    // Re-render current page if on dashboard
+    if (getHash() === '/') navigate();
+  });
+
   // Initial render
   await navigate();
 
   // Check connection
   updateConnectionStatus();
+
+  // Show welcome modal for first-time visitors
+  showWelcomeModal();
 
   // Poll connection every 15 seconds
   setInterval(updateConnectionStatus, 15000);
