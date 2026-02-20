@@ -1,5 +1,9 @@
 // OllaManager – Main Entry Point & Router
 import './style.css';
+
+import { inject } from '@vercel/analytics';
+inject();
+
 import { checkConnection, getVersion, getSettings } from './api.js';
 import { renderDashboard } from './pages/dashboard.js';
 import { renderModels } from './pages/models.js';
